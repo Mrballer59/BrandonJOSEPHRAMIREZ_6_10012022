@@ -62,7 +62,7 @@ h1 {
   text-decoration: none;
 }
 
-.photographer_section article h2 {
+.photographer_section article a h2 {
   color: var(--secondary-color);
   font-size: 36px;
   font-weight: 400;
@@ -75,8 +75,23 @@ h1 {
   border-radius: 50%;
   object-fit: cover;
 }
+.photographer_section article p {
+  font-size: 0.822em;
+  color: #901c1c;
+  margin: 0px;
+}
+.photographer_section article :nth-child(3) {
+  font-size: 0.825em;
+  color: black;
+  margin: 3px 0 0 0;
+}
+.photographer_section article :nth-child(4) {
+  font-size: 00.8625em;
+  color: #757575;
+  margin: 3px 0 0 0;
+}
 
-.photographer_section article article :nth-child(1) {
+/* .photographer_section article article :nth-child(1) {
   font-size: 0.8125em;
   color: #901c1c;
 }
@@ -90,4 +105,4 @@ h1 {
   font-size: 0.5625em;
   color: #757575;
   margin: 3px 0 0 0;
-}
+} */
