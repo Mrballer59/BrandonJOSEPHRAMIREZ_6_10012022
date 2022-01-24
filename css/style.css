@@ -75,17 +75,17 @@ h1 {
   border-radius: 50%;
   object-fit: cover;
 }
-.photographer_section article p {
+.photographer_section article article :nth-child(1) {
   font-size: 0.822em;
   color: #901c1c;
   margin: 0px;
 }
-.photographer_section article :nth-child(3) {
+.photographer_section article article :nth-child(2) {
   font-size: 0.825em;
   color: black;
   margin: 3px 0 0 0;
 }
-.photographer_section article :nth-child(4) {
+.photographer_section article article p {
   font-size: 00.8625em;
   color: #757575;
   margin: 3px 0 0 0;

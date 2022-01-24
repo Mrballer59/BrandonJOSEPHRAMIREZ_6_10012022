@@ -1,27 +1,32 @@
 //Mettre le code JavaScript lié à la page photographer.html
+import mediaFacotory from "../factories/photographerMedia.js";
+import profileFactory from "../factories/photographerProfile.js";
+
 async function getPhotographers() {
   let photographers = [];
   await fetch("./data/photographers.json")
     .then((res) => res.json())
-    .then((data) => (photographers = data.photographers));
+    .then((data) => {
+      photographers = data.photographers;
+    });
 
   return {
     photographers,
   };
 }
-getPhotographers();
 
 async function getMedias() {
   let media = [];
   await fetch("./data/photographers.json")
     .then((res) => res.json())
-    .then((data) => (media = data.media));
+    .then((data) => {
+      media = data.media;
+    });
 
   return {
     media,
   };
 }
-getMedias();
 
 async function displayData(photographers) {
   // Get the id in l'URL
@@ -30,7 +35,9 @@ async function displayData(photographers) {
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
 
-  const profile = photographers.find((element) => element.id == idPage);
+  const idPageParse = JSON.parse(idPage);
+
+  const profile = photographers.find((element) => element.id === idPageParse);
 
   const photographersProfile = profileFactory(profile);
   const userCardDOM = photographersProfile.getUserCardDOM();

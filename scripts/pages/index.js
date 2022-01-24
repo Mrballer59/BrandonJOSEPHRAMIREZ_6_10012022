@@ -1,3 +1,4 @@
+import photographerFactory from "../factories/photographer.js";
 function getPhotographers() {
   let photographers = [];
 
