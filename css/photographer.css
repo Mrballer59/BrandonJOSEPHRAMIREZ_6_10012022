@@ -4,13 +4,14 @@
 
 .photograph-header {
   background-color: #fafafa;
+  height: 315px;
   margin: 0 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
-  padding: 55px 50px 56px 50px;
+  padding: 0px 50px 5px 50px;
 }
 .maincontent {
   display: flex;
@@ -90,10 +91,19 @@
   padding: 23px 60px 15px 21px;
 }
 
-/* .photograph-media {
+.photograph-media {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 93px;
+  border: red solid 1px;
+  margin: 30px 100px 0 100px;
 }
-.media {
-  
+/* .media {
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
 } */
 
 .modal header img {

@@ -1,6 +1,6 @@
 export default function mediaFacotory(data) {
   const { date, id, image, likes, photographerId, price, title } = data;
-  const picture = `assets/images/${image}`;
+  const picture = `./assets/images/${image}`;
   function getMediaCardDOM() {
     const article = document.createElement("article");
     const div = document.createElement("div");
