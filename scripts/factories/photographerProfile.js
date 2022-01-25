@@ -1,9 +1,9 @@
 export default function profileFactory(data) {
   const { name, portrait, city, country, tagline, price, id } = data;
-  const picture = `./asset/photographers/${portrait}`;
+  const picture = `./assets/photographers/${portrait}`;
   function getUserCardDOM() {
     const article = document.createElement("article");
-    // const div = document.querySelector(".photograph-header");
+
     article.setAttribute("class", "maincontent");
     const textArticle = document.createElement("div");
     textArticle.setAttribute("class", "textcontent");
