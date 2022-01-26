@@ -1,5 +1,5 @@
 //Mettre le code JavaScript lié à la page photographer.html
-import mediaFacotory from "../factories/photographerMedia.js";
+
 import profileFactory from "../factories/photographerProfile.js";
 
 async function getPhotographers() {

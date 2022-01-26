@@ -4,14 +4,9 @@
 
 .photograph-header {
   background-color: #fafafa;
-  height: 315px;
   margin: 0 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
-  padding: 0px 50px 5px 50px;
+  padding: 56px 50px 55px 50px;
 }
 .maincontent {
   display: flex;
@@ -26,7 +21,7 @@
 
 .photograph-header article h1 {
   color: #d3573c;
-  font-size: 4rem;
+  font-size: 4em;
   margin: 0;
 }
 .photograph-header article article p {
@@ -88,7 +83,7 @@
   border-radius: 10px;
   color: white;
   font-size: 1.125em;
-  padding: 23px 60px 15px 21px;
+  padding: 23px 6px 15px 21px;
 }
 
 .photograph-media {
@@ -99,12 +94,12 @@
   border: red solid 1px;
   margin: 30px 100px 0 100px;
 }
-/* .media {
+.media {
   width: 350px;
   height: 300px;
   border-radius: 5px;
   object-fit: cover;
-} */
+}
 
 .modal header img {
   cursor: pointer;
