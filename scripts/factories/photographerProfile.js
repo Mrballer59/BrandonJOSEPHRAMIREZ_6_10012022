@@ -41,6 +41,13 @@ export default function profileFactory(data) {
     article.appendChild(btn);
     article.appendChild(img);
 
+    // Adding the still info box
+    const infoRedbox = document.querySelector(".still-box");
+    const pPrice = document.createElement("p");
+    pPrice.textContent = `${price}€ / Jour`;
+    pPrice.setAttribute("class", "price-per-day");
+    infoRedbox.appendChild(pPrice);
+
     return article;
   }
   return { name, picture, city, country, tagline, price, id, getUserCardDOM };

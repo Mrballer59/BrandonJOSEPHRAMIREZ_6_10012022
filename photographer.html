@@ -12,13 +12,17 @@
   </head>
   <body>
     <header>
+      <script
+        src="https://kit.fontawesome.com/03dcf4e655.js"
+        crossorigin="anonymous"
+      ></script>
       <a href="./index.html"
         ><img src="assets/images/logo.png" alt="Fisheye Home page" class="logo"
       /></a>
     </header>
     <main id="main">
       <div class="photograph-header"></div>
-
+      <article class="still-box"></article>
       <form class="selection-form" method="post" action="traitement.php">
         <p>
           <label class="selection" for="classement">Trier par</label>
@@ -46,6 +50,8 @@
         </form>
       </div>
     </div>
+    <script src="/scripts/factories/photographerProfile.js"></script>
+    <script src="/scripts/factories/photographerMedia.js"></script>
     <script type="module" src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
