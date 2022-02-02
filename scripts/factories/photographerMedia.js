@@ -1,15 +1,27 @@
 export default function mediaFacotory(data) {
-  const { date, id, image, likes, photographerId, price, title } = data;
-  const picture = `./assets/images/${image}`;
+  const { date, id, image, likes, photographerId, price, title, video } = data;
+
   function getMediaCardDOM() {
     const article = document.createElement("article");
-    const div = document.createElement("div");
+    if (image) {
+      const picture = `./assets/images/${image}`;
+      const img = document.createElement("img");
+      img.setAttribute("src", picture);
+      img.setAttribute("alt", `${title}`);
+      img.setAttribute("tabindex", 0);
+      img.setAttribute("class", "media");
+      article.appendChild(img);
+    }
+    if (video) {
+      const movie = `.assets/movies/${video}`;
+      const videoContent = document.createElement("video");
+      videoContent.setAttribute("src", movie);
+      videoContent.setAttribute("controls", "");
+      videoContent.setAttribute("class", media);
+      article.appendChild(videoContent);
+    }
 
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", `${title}`);
-    img.setAttribute("tabindex", 0);
-    img.setAttribute("class", "media");
+    const div = document.createElement("div");
     div.setAttribute("class", "infoBox");
 
     const titleMedia = document.createElement("p");
@@ -26,7 +38,6 @@ export default function mediaFacotory(data) {
     hearts.innerHTML = `<i class="fas fa-heart"></i>`;
     hearts.setAttribute("class", "infoBox-heart");
 
-    article.appendChild(img);
     article.appendChild(div);
     div.appendChild(titleMedia);
     div.appendChild(likesMedia);
@@ -40,6 +51,7 @@ export default function mediaFacotory(data) {
     photographerId,
     price,
     title,
+    video,
     getMediaCardDOM,
   };
 }

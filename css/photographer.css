@@ -127,7 +127,8 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.price-per-day {
+}
 .modal header img {
   cursor: pointer;
 }

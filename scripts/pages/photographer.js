@@ -64,6 +64,16 @@ async function displayMedia(media) {
   });
 }
 
+// //Adding the total of likes/hearts on the still-box
+// const still_box = document.querySelector(".still-box");
+// const totalLikesBox = document.createElement("p");
+// totalLikesBox.textContent = `${totalLikes}`;
+// totalLikesBox.setAttribute("class", "total-likes");
+// still_box.appendChild(totalLikesBox);
+// still_box.setAttribute("tabindex", 0);
+// const heart = document.createElement("p");
+// heart.innerHTML = `<i class="fas fa-heart></i>`;
+
 async function init() {
   // fetchs the data and display it
   const { photographers } = await getPhotographers();
