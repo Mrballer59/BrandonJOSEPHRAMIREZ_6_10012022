@@ -29,11 +29,12 @@ async function getMedias() {
 }
 
 async function displayData(photographers) {
-  // Get the id in l'URL
   const photographersHeader = document.querySelector(".photograph-header");
+  // Get the id in l'URL
   const PageQueryString = window.location.search;
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
+  //transform ID to a string
 
   const idPageParse = JSON.parse(idPage);
 
@@ -45,7 +46,7 @@ async function displayData(photographers) {
 }
 async function displayMedia(media) {
   const mediaSection = document.querySelector(".photograph-media");
-  console.log(media);
+  // console.log(media);
   const PageQueryString = window.location.search;
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
@@ -55,11 +56,14 @@ async function displayMedia(media) {
   const mediaBoxes = media.filter(
     (element) => element.photographerId === idPageParse
   );
-  console.log(mediaBoxes);
+  mediaBoxes.sort((a, b) => b.likes - a.likes);
+  // console.log(mediaBoxes);
+
+  //Boxes
 
   mediaBoxes.forEach((mediaBoxe1) => {
-    const mediaBoxe = mediaFactory(mediaBoxe1);
-    const mediaCardDOM = mediaBoxe.getMediaCardDOM();
+    const mediaBox = mediaFactory(mediaBoxe1);
+    const mediaCardDOM = mediaBox.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
 }
@@ -73,6 +77,17 @@ async function displayMedia(media) {
 // still_box.setAttribute("tabindex", 0);
 // const heart = document.createElement("p");
 // heart.innerHTML = `<i class="fas fa-heart></i>`;
+
+const popularity = document.getElementById("choice-popularity");
+popularity.addEventListener("click", () => {
+  async function switchMedia() {
+    mediaBoxes.sort((a, b) => a.likes - b.likes);
+    mediaBoxes.forEach((mediaboxe) => {
+      console.log(mediaboxe.likes);
+    });
+  }
+  switchMedia();
+});
 
 async function init() {
   // fetchs the data and display it

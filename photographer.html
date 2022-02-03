@@ -23,16 +23,23 @@
     <main id="main">
       <div class="photograph-header"></div>
       <article class="still-box"></article>
-      <form class="selection-form" method="post" action="traitement.php">
-        <p>
-          <label class="selection" for="classement">Trier par</label>
-          <select name="classement" id="classement">
-            <option value="Popularité">Popularité</option>
-            <option value="Date">Date</option>
-            <option value="Titre">Titre</option>
-          </select>
-        </p>
-      </form>
+
+      <aside>
+        <p class="selection">Trier par:</p>
+        <div class="dropdown">
+          <div class="dropdown-button">
+            <p id="selected-choice">Popularité</p>
+            <div class="dropdown-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+          <ul class="dropdown-menu">
+            <li class="dropdown-menu-li" id="choice-popularity">Popularité</li>
+            <li class="dropdown-menu-li" id="choice-date">Date</li>
+            <li class="dropdown-menu-li" id="choice-title">Title</li>
+          </ul>
+        </div>
+      </aside>
       <div class="photograph-media"></div>
     </main>
     <div id="contact_modal">
