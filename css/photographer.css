@@ -187,6 +187,9 @@ aside {
 .info-likes {
   margin-right: 7px;
 }
+.big-heart {
+  cursor: pointer;
+}
 .still-box {
   width: 376px;
   height: 67px;
@@ -202,6 +205,13 @@ aside {
   justify-content: space-between;
 }
 .price-per-day {
+  order: 3;
+  width: 100%;
+  text-align: end;
+  margin-right: 34px;
+}
+.total-likes {
+  margin: 0 7px 0 35px;
 }
 .modal header img {
   cursor: pointer;

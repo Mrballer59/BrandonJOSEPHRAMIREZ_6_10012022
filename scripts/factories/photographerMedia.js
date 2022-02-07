@@ -11,7 +11,7 @@ export default function mediaFacotory(data) {
       const picture = `./assets/images/${image}`;
       const img = document.createElement("img");
       img.setAttribute("src", picture);
-      img.setAttribute("alt", `${title}`);
+      img.setAttribute("alt", `${title},closeup view`);
       img.setAttribute("tabindex", 0);
       img.setAttribute("class", "media");
       article.appendChild(img);
@@ -26,35 +26,32 @@ export default function mediaFacotory(data) {
       const movie = `.assets/movies/${video}`;
       const videoContent = document.createElement("video");
       videoContent.setAttribute("src", movie);
-      videoContent.setAttribute("controls", "");
+      videoContent.setAttribute("tabindex", 0);
       videoContent.setAttribute("class", "media");
       article.appendChild(videoContent);
+
+      const titleMovie = document.createElement("p");
+      titleMovie.setAttribute("tabindex", 0);
+      titleMovie.textContent = video.replace(/_/g, " ").replace(".mp4", " ");
+      titleMovie.setAttribute("class", "infoBox-title");
+      div.appendChild(titleMovie);
+
+      // const posterTitle = video.replace(".mp4", ".jpg");
+      // const poster = `assets/poster/${posterTitle}`;
+      // videoContent.setAttribute("poster", poster);
     }
-
-    // const div = document.createElement("div");
-    // div.setAttribute("class", "infoBox");
-    // const titleMedia = document.createElement("p");
-    // titleMedia.textContent = title;
-    // titleMedia.setAttribute("tabindex", 0);
-    // titleMedia.setAttribute("class", "infoBox-title");
-
-    const titleMovie = document.createElement("p");
-    titleMovie.setAttribute("tabindex", 0);
-    titleMovie.textContent = video.replace(/_/g, " ").replace(".mp4", " ");
-    titleMovie.setAttribute("class", "infoBox-title");
-    div.appendChild(titleMovie);
-
     const likesMedia = document.createElement("p");
     likesMedia.textContent = likes;
     likesMedia.setAttribute("tabindex", 0);
-    likesMedia.setAttribute("class", "infoBox-likes");
+    likesMedia.setAttribute("class", "info-likes");
 
     const hearts = document.createElement("p");
     hearts.innerHTML = `<i class="fas fa-heart"></i>`;
-    hearts.setAttribute("class", "infoBox-heart");
+    hearts.setAttribute("class", "big-heart");
 
+    hearts.setAttribute("tabindex", 0);
+    hearts.setAttribute("aria-label", `${likes} likes`);
     article.appendChild(div);
-
     div.appendChild(likesMedia);
     div.appendChild(hearts);
     return article;

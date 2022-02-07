@@ -1,6 +1,8 @@
 export default function profileFactory(data) {
   const { name, portrait, city, country, tagline, price, id } = data;
   const picture = `./assets/photographers/${portrait}`;
+  console.log(picture.split("."));
+
   function getUserCardDOM() {
     const article = document.createElement("article");
 
@@ -50,5 +52,6 @@ export default function profileFactory(data) {
 
     return article;
   }
+
   return { name, picture, city, country, tagline, price, id, getUserCardDOM };
 }
