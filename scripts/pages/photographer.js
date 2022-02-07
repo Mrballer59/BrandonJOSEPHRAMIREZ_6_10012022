@@ -39,14 +39,14 @@ async function displayData(photographers) {
   const idPageParse = JSON.parse(idPage);
 
   const profile = photographers.find((element) => element.id === idPageParse);
-
   const photographersProfile = profileFactory(profile);
   const userCardDOM = photographersProfile.getUserCardDOM();
   photographersHeader.appendChild(userCardDOM);
 }
+
 async function displayMedia(media) {
   const mediaSection = document.querySelector(".photograph-media");
-  // console.log(media);
+
   const PageQueryString = window.location.search;
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
@@ -56,38 +56,29 @@ async function displayMedia(media) {
   const mediaBoxes = media.filter(
     (element) => element.photographerId === idPageParse
   );
+
   mediaBoxes.sort((a, b) => b.likes - a.likes);
-  // console.log(mediaBoxes);
-
-  //Boxes
-
   mediaBoxes.forEach((mediaBoxe1) => {
     const mediaBox = mediaFactory(mediaBoxe1);
     const mediaCardDOM = mediaBox.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
 }
-
-// //Adding the total of likes/hearts on the still-box
-// const still_box = document.querySelector(".still-box");
-// const totalLikesBox = document.createElement("p");
-// totalLikesBox.textContent = `${totalLikes}`;
-// totalLikesBox.setAttribute("class", "total-likes");
-// still_box.appendChild(totalLikesBox);
-// still_box.setAttribute("tabindex", 0);
-// const heart = document.createElement("p");
-// heart.innerHTML = `<i class="fas fa-heart></i>`;
-
-const popularity = document.getElementById("choice-popularity");
-popularity.addEventListener("click", () => {
-  async function switchMedia() {
-    mediaBoxes.sort((a, b) => a.likes - b.likes);
-    mediaBoxes.forEach((mediaboxe) => {
-      console.log(mediaboxe.likes);
-    });
-  }
-  switchMedia();
+let totalLikes = 0;
+mediaBoxes.map((element) => {
+  totalLikes += element.likes;
+  return totalLikes;
 });
+
+//Adding the total of likes/hearts on the still-box
+const still_box = document.querySelector(".still-box");
+const totalLikesBox = document.createElement("p");
+totalLikesBox.textContent = `${totalLikes}`;
+totalLikesBox.setAttribute("class", "total-likes");
+still_box.appendChild(totalLikesBox);
+still_box.setAttribute("tabindex", 0);
+const heart = document.createElement("p");
+heart.innerHTML = `<i class="fas fa-heart></i>`;
 
 async function init() {
   // fetchs the data and display it
