@@ -23,7 +23,7 @@ export default function mediaFacotory(data) {
       div.appendChild(titleMedia);
     }
     if (video) {
-      const movie = `.assets/movies/${video}`;
+      const movie = `assets/movies/${video}`;
       const videoContent = document.createElement("video");
       videoContent.setAttribute("src", movie);
       videoContent.setAttribute("tabindex", 0);
@@ -36,9 +36,9 @@ export default function mediaFacotory(data) {
       titleMovie.setAttribute("class", "infoBox-title");
       div.appendChild(titleMovie);
 
-      // const posterTitle = video.replace(".mp4", ".jpg");
-      // const poster = `assets/poster/${posterTitle}`;
-      // videoContent.setAttribute("poster", poster);
+      const posterTitle = video.replace(".mp4", ".jpg");
+      const poster = `assets/poster/${posterTitle}`;
+      videoContent.setAttribute("poster", poster);
     }
     const likesMedia = document.createElement("p");
     likesMedia.textContent = likes;

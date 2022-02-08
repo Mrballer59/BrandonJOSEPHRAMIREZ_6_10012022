@@ -16,6 +16,7 @@ export default function profileFactory(data) {
     img.setAttribute("src", picture);
     img.setAttribute("alt", `${name}`);
     img.setAttribute("tabindex", 0);
+    img.setAttribute("id", "photograph-img");
 
     const h1 = document.createElement("h1");
     h1.textContent = name;

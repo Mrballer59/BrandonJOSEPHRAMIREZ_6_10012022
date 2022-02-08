@@ -154,9 +154,9 @@ aside {
 .dropdown:hover .dropdown-menu {
   display: block;
 }
-.selection-hidden {
+/* .selection-hidden {
   display: none;
-}
+} */
 
 .photograph-media {
   display: flex;
