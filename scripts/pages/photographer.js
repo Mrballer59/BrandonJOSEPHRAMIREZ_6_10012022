@@ -42,6 +42,17 @@ async function displayData(photographers) {
   const photographersProfile = profileFactory(profile);
   const userCardDOM = photographersProfile.getUserCardDOM();
   photographersHeader.appendChild(userCardDOM);
+
+  // Modale Part
+  const modal = document.getElementById("contact-modal");
+  const modalIntro = document.getElementById("contact me");
+  const contactButton = document.getElementById("contact-button");
+
+  contactButton.addEventListener("click", () => {
+    modal.setAttribute("aria-hidden", "false");
+    modal.style.display = "block";
+    modalIntro.focus();
+  });
 }
 
 async function displayMedia(media) {
@@ -62,6 +73,49 @@ async function displayMedia(media) {
     const mediaCardDOM = mediaBox.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
+
+  const lightBoxLink = document.querySelectorAll(".media");
+  const lightBoxMediaContainer = document.querySelector("#lightBox-container");
+
+  const lightBoxtitle = document.querySelector("#lightBox-container-title");
+  const prevArrow = document.getElementById("lightBox-prev");
+  const nextArrow = document.getElementById("lightBox-next");
+
+  prevArrow.addEventListener("click", () => {});
+  nextArrow.addEventListener("click", () => {});
+
+  const feedLightBox = (element) => {
+    const lightBoxLinkTitle = element.nextSibling.firstChild;
+    lightBoxtitle.textContent = lightBoxLinkTitle.textContent;
+
+    const lightBox = document.getElementById("lightBox");
+    const mediaLightBoxLink = element.src;
+
+    if (mediaLightBoxLink.includes(".jpg")) {
+      const img = document.createElement("img");
+      img.setAttribute("src", mediaLightBoxLink);
+      img.setAttribute("id", "image-lightbox");
+      lightBoxMediaContainer.appendChild(img);
+    }
+    if (mediaLightBoxLink.includes(".mp4")) {
+      const video = document.createElement("video");
+      video.setAttribute("src", mediaLightBoxLink);
+      video.setAttribute("controls", "");
+      lightBoxMediaContainer.appendChild(video);
+    }
+    lightBox.setAttribute("aria-hidden", "false");
+    lightBox.style.visibility = "visible";
+    lightBox.focus();
+  };
+  lightBoxLink.forEach((element) => {
+    element.addEventListener("keyprees", (e) => {
+      if (e.key === "Enter") feedLightBox(element);
+    });
+    element.addEventListener("click", () => {
+      feedLightBox(element);
+    });
+  });
+
   let totalLikes = 0;
   mediaBoxes.map((element) => {
     totalLikes += element.likes;

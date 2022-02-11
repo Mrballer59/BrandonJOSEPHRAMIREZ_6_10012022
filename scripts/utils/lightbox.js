@@ -1,7 +1,7 @@
-const lightBox = document.getElementById("lightbox");
+const lightBox = document.getElementById("lightBox");
 const lightBoxOutro = document.getElementById("header");
-const lightBoxClose = document.getElementById("lightbox-close");
-const lightBoxMediaContener = document.querySelector("#lightbox-contener");
+const lightBoxClose = document.getElementById("lightBox-close");
+const lightBoxMediaContener = document.querySelector("#lightBox-container");
 
 function closeLightBox() {
   lightBox.setAttribute("aria-hidden", "true");
