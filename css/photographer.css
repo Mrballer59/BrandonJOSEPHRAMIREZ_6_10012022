@@ -1,9 +1,18 @@
 #contact_modal {
   display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(196, 196, 196, 0, 4);
 }
 * {
   box-sizing: border-box;
 }
+/* Profile photographer */
 
 .photograph-header {
   background-color: #fafafa;
@@ -61,13 +70,16 @@
 .modal {
   border-radius: 5px;
   background-color: #db8876;
-  width: 50%;
+  width: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 35px;
+  padding: 15px 35px 35px 35px;
   margin: auto;
+  position: relative;
+  top: 69px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
 }
 /* .selection-form {
   margin: 20px 0 0 100px;
@@ -81,13 +93,22 @@ aside {
 .modal header {
   justify-content: space-between;
   width: 100%;
+  align-items: flex-start;
+  height: 165px;
+  margin-bottom: 19px;
 }
 .selection {
   font-size: 1.125em;
   font-weight: 700;
   margin: 20px 25px 0 100px;
 }
-
+#close-cross {
+  border: none;
+  background-color: #db8876;
+  position: absolute;
+  top: 35px;
+  right: 35px;
+}
 .dropdown {
   position: relative;
   cursor: pointer;
@@ -215,12 +236,15 @@ aside {
 }
 .modal header img {
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .modal header h2 {
   font-size: 64px;
-  font-weight: normal;
-  text-align: center;
+  /* font-weight: normal;
+  text-align: center; */
+  font-weight: 400;
+  text-align: start;
 }
 
 form {
@@ -228,11 +252,13 @@ form {
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  font-weight: 400;
 }
 
 form label {
   color: #312e2e;
   font-size: 36px;
+  font-weight: 400;
 }
 
 form div {
@@ -248,4 +274,67 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
+}
+/* lightBox Part */
+.lightBox {
+  visibility: hidden;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  column-gap: 27px;
+  justify-content: center;
+  background-color: white;
+}
+.lightBox-next,
+.lightBox-prev,
+.lightBox-close {
+  border: none;
+  background-color: white;
+  color: #901c1c;
+  font-size: 56px;
+  cursor: pointer;
+  align-items: center;
+}
+.lightBox-prev {
+  order: 1;
+  position: relative;
+  top: -130px;
+}
+.lightBox-next {
+  order: 3;
+  position: relative;
+  top: -130;
+}
+.lightBox-close {
+  font-size: 60px;
+  align-self: flex-start;
+  margin-top: 70px;
+  position: relative;
+  right: 85px;
+  order: 4;
+}
+.lightBox-center {
+  order: 2;
+}
+.lightBox-container {
+  width: 1050px;
+  height: 900px;
+  margin-top: 60px;
+}
+.lightBox-container img,
+.lightBox-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightBox-container-title {
+  padding-top: 12px;
+  font-size: 1.5em;
+  color: #901c1c;
 }
