@@ -175,16 +175,13 @@ aside {
 .dropdown:hover .dropdown-menu {
   display: block;
 }
-/* .selection-hidden {
-  display: none;
-} */
 
 .photograph-media {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 93px;
-  border: red solid 1px;
+  /* border: red solid 1px; */
   margin: 30px 100px 0 100px;
 }
 .media {
@@ -275,6 +272,7 @@ form input {
   border: none;
   border-radius: 5px;
 }
+
 /* lightBox Part */
 .lightBox {
   visibility: hidden;

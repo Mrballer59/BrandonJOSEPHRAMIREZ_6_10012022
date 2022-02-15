@@ -45,15 +45,15 @@ export default function mediaFacotory(data) {
     likesMedia.setAttribute("tabindex", 0);
     likesMedia.setAttribute("class", "info-likes");
 
-    const hearts = document.createElement("p");
-    hearts.innerHTML = `<i class="fas fa-heart"></i>`;
-    hearts.setAttribute("class", "big-heart");
+    const hearts1 = document.createElement("p");
+    hearts1.innerHTML = `<i class="fas fa-heart"></i>`;
+    hearts1.setAttribute("class", "big-heart");
 
-    hearts.setAttribute("tabindex", 0);
-    hearts.setAttribute("aria-label", `${likes} likes`);
+    hearts1.setAttribute("tabindex", 0);
+    hearts1.setAttribute("aria-label", `${likes} likes`);
     article.appendChild(div);
     div.appendChild(likesMedia);
-    div.appendChild(hearts);
+    div.appendChild(hearts1);
     return article;
   }
   return {
