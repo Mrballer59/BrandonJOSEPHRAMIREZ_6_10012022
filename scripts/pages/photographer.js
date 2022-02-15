@@ -73,7 +73,7 @@ async function displayMedia(media) {
     const mediaCardDOM = mediaBox.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
-
+  // LightBox part
   const lightBoxLink = document.querySelectorAll(".media");
   const lightBoxMediaContainer = document.querySelector("#lightBox-container");
 
@@ -83,6 +83,31 @@ async function displayMedia(media) {
 
   prevArrow.addEventListener("click", () => {});
   nextArrow.addEventListener("click", () => {});
+
+  nextArrow.addEventListener("click", () => {
+    let imageLightbox = document.querySelector(".lightBox-container > img");
+    console.log(lightBoxLink);
+    console.log(parseInt(imageLightbox.dataset.id, 10));
+    const result = mediaBoxes.find(
+      (element) => element.id === parseInt(imageLightbox.dataset.id, 10)
+    );
+    console.log(result);
+
+    console.log(mediaBoxes.indexOf(result));
+    const i = mediaBoxes.indexOf(result);
+    const nextImage = mediaBoxes[i + 1];
+    console.log(nextImage.image);
+
+    const nextPhoto = nextImage.image;
+    const picture = `./assets/images/${nextPhoto}`;
+    const img = document.createElement("img");
+    img.setAttribute("src", picture);
+    img.dataset.id = mediaBoxes[i + 1].id;
+    lightBoxMediaContainer.innerHTML = "";
+    lightBoxMediaContainer.appendChild(img);
+    imageLightbox = document.querySelector(".lightBox-container > img");
+    console.log(imageLightbox);
+  });
 
   const feedLightBox = (element) => {
     const lightBoxLinkTitle = element.nextSibling.firstChild;
@@ -94,7 +119,8 @@ async function displayMedia(media) {
     if (mediaLightBoxLink.includes(".jpg")) {
       const img = document.createElement("img");
       img.setAttribute("src", mediaLightBoxLink);
-      img.setAttribute("id", "image-lightbox");
+      img.dataset.id = element.dataset.id;
+      // img.setAttribute("id", "image-lightbox");
       lightBoxMediaContainer.appendChild(img);
     }
     if (mediaLightBoxLink.includes(".mp4")) {
@@ -152,6 +178,26 @@ async function displayMedia(media) {
         let number = parseInt(likeCount.textContent, 10);
         likeCount.textContent = `${(number -= 1)}`;
         totalLikesBox.textContent = `${(totalLikes -= 1)}`;
+        const elementLikes = element;
+        elementLikes.style.color = "#901c1c";
+      }
+    });
+    element.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const likeCount = element.previousSibling;
+        const classes = likeCount.classList;
+        const result = classes.toggle("hearts");
+        if (result) {
+          let number = parseInt(likeCount.textContent, 10);
+          likeCount.textContent = `${(number += 1)}`;
+          totalLikesBox.textContent = `${(totalLikes += 1)}`;
+          elementLikes.style.color = "#db8876";
+        } else {
+          let number = parseInt(likeCount.textContent, 10);
+          likeCount.textContent = `${(totalLikes -= 1)}`;
+          const elementLikes = element;
+          elementLikes.style.color = "#901c1";
+        }
       }
     });
   });

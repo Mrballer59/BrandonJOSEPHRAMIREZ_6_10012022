@@ -1,7 +1,7 @@
 export default function profileFactory(data) {
   const { name, portrait, city, country, tagline, price, id } = data;
   const picture = `./assets/photographers/${portrait}`;
-  console.log(picture.split("."));
+  // console.log(picture.split("."));
 
   function getUserCardDOM() {
     const article = document.createElement("article");
@@ -32,7 +32,7 @@ export default function profileFactory(data) {
     const btn = document.createElement("button");
     btn.textContent = `Contactez-moi`;
     btn.setAttribute("class", "contact_button");
-    btn.setAttribute("onclick", "displayModal()");
+    btn.setAttribute("id", "contact-button");
     btn.setAttribute("aria-label", "Contact me");
 
     article.appendChild(textArticle);
@@ -50,6 +50,12 @@ export default function profileFactory(data) {
     pPrice.textContent = `${price}€ / Jour`;
     pPrice.setAttribute("class", "price-per-day");
     infoRedbox.appendChild(pPrice);
+
+    //
+    // const contactMe = document.getElementById("contact me");
+    // const nameContact = document.createElement("span");
+    // nameContact.textContent = `${name}`;
+    // contactMe.appendChild(nameContact);
 
     return article;
   }
