@@ -3,7 +3,7 @@ export default function mediaFacotory(data) {
 
   function getMediaCardDOM() {
     const article = document.createElement("article");
-    // article.setAttribute("id", id);
+    article.setAttribute("id", id);
     const div = document.createElement("div");
     div.setAttribute("class", "infoBox");
 
@@ -29,6 +29,12 @@ export default function mediaFacotory(data) {
       videoContent.setAttribute("src", movie);
       videoContent.setAttribute("tabindex", 0);
       videoContent.setAttribute("class", "media");
+      videoContent.setAttribute(
+        "aria-label",
+        video.replace(/_/g, " ").replace(".mp4", " ")
+      );
+      videoContent.dataset.id = id;
+
       article.appendChild(videoContent);
 
       const titleMovie = document.createElement("p");
