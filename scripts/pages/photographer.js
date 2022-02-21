@@ -45,7 +45,7 @@ async function displayData(photographers) {
 
   // Modale Part
   const modal = document.getElementById("contact-modal");
-  const modalIntro = document.getElementById("contact me");
+  const modalIntro = document.getElementById("contact-me");
   const contactButton = document.getElementById("contact-button");
 
   contactButton.addEventListener("click", () => {
@@ -74,6 +74,8 @@ async function displayMedia(media) {
     mediaSection.appendChild(mediaCardDOM);
   });
   // LightBox part
+
+  const lightBox = document.querySelector("#lightBox");
   const lightBoxLink = document.querySelectorAll(".media");
   const lightBoxMediaContainer = document.querySelector("#lightBox-container");
 
@@ -81,34 +83,113 @@ async function displayMedia(media) {
   const prevArrow = document.getElementById("lightBox-prev");
   const nextArrow = document.getElementById("lightBox-next");
 
-  prevArrow.addEventListener("click", () => {});
-  nextArrow.addEventListener("click", () => {});
+  // New Elements for the img ans vidoes plus the arrow
+  const previous = () => {
+    let mediaLightBox = document.querySelector(".lightBox-container")
+      .firstChild;
 
-  nextArrow.addEventListener("click", () => {
-    let imageLightbox = document.querySelector(".lightBox-container > img");
-    console.log(lightBoxLink);
-    console.log(parseInt(imageLightbox.dataset.id, 10));
     const result = mediaBoxes.find(
-      (element) => element.id === parseInt(imageLightbox.dataset.id, 10)
+      (element) => element.id === parseInt(mediaLightBox.dataset.id, 10)
     );
-    console.log(result);
+    let i = mediaBoxes.indexOf(result);
+    if (i === 0) {
+      i = mediaBoxes.length;
+    }
+    const nextMedia = mediaBoxes[i - 1];
 
-    console.log(mediaBoxes.indexOf(result));
-    const i = mediaBoxes.indexOf(result);
-    const nextImage = mediaBoxes[i + 1];
-    console.log(nextImage.image);
+    if (nextMedia.image) {
+      const newDisplayImage = nextMedia.image;
+      const picture = `.assets/images/${newDisplayImage}`;
+      const img = document.createElement("img");
+      img.setAttribute("src", picture);
+      img.setAttribute("alt", nextMedia.title);
+      img.dataset.id = mediaBoxes[i - 1].id;
 
-    const nextPhoto = nextImage.image;
-    const picture = `./assets/images/${nextPhoto}`;
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    img.dataset.id = mediaBoxes[i + 1].id;
-    lightBoxMediaContainer.innerHTML = "";
-    lightBoxMediaContainer.appendChild(img);
-    imageLightbox = document.querySelector(".lightBox-container > img");
-    console.log(imageLightbox);
+      lightBoxMediaContainer.innerHTML = "";
+      lightBoxMediaContainer.appendChild(img);
+      lightBoxMediaContainer.textContent = nextMedia.title;
+    }
+    if (nextMedia.video) {
+      const newDisplayVideo = nextMedia.video;
+      const movie = `./assets/movie/${newDisplayVideo}`;
+      const videoDisplay = document.createElement("video");
+      videoDisplay.setAttribute("src", movie);
+      videoDisplay.setAttribute("controls", "");
+      videoDisplay.setAttribute(
+        "aria-label",
+        nextMedia.video.replace(/_/g, " ").replace(".mp4", " ")
+      );
+      videoDisplay.dataset.id = mediaBoxes[i - 1].id;
+
+      lightBoxMediaContainer.innerHTML = "";
+      lightBoxMediaContainer.appendChild(videoDisplay);
+      lightBoxtitle.textContent = nextMedia.video
+        .replace(/_/g, " ")
+        .replace(".mp4", " ");
+    }
+    mediaLightBox = document.querySelector(".lightBox-container").firstChild;
+  };
+
+  // Next Elements
+  const next = () => {
+    let mediaLightBox = document.querySelector(".lightBox-container")
+      .firstChild;
+
+    const result = mediaBoxes.find(
+      (element) => element.id === parseInt(mediaLightBox.dataset.id, 10)
+    );
+    let i = mediaBoxes.indexOf(result);
+    if (i === mediaBoxes.length - 1) {
+      i = -1;
+    }
+    const nextMedia = mediaBoxes[i + 1];
+    if (nextMedia.image) {
+      const newDisplayImage = nextMedia.image;
+      const picture = `./assets/images/${newDisplayImage}`;
+      const img = document.createElement("img");
+      img.setAttribute("src", picture);
+      img.setAttribute("alt", nextMedia.title);
+      img.dataset.id = mediaBoxes[i + 1].id;
+      lightBoxMediaContainer.innerHTML = "";
+      lightBoxMediaContainer.appendChild(img);
+      lightBoxtitle.textContent = nextMedia.title;
+    }
+    if (nextMedia.video) {
+      const newDisplayVideo = nextMedia.video;
+      const movie = `./assets/movies/${newDisplayVideo}`;
+      const videoDisplay = document.createElement("video");
+      videoDisplay.setAttribute("src", movie);
+      videoDisplay.setAttribute("controls", " ");
+      videoDisplay.setAttribute(
+        "arial-label",
+        nextMedia.video.replace(/_/g, " ").replace(".mp4", " ")
+      );
+      videoDisplay.dataset.id = mediaBoxes[i + 1].id;
+      lightBoxMediaContainer.innerHTML = "";
+      lightBoxMediaContainer.appendChild(videoDisplay);
+      lightBoxtitle.textContent = nextMedia.video
+        .replace(/_/g, " ")
+        .replace(".mp4", " ");
+    }
+    mediaLightBox = document.querySelector(".lightBox-container").firstChild;
+  };
+  // Event Part of lightBox
+  lightBox.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+      next();
+    }
   });
-
+  lightBox.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
+      previous();
+    }
+  });
+  nextArrow.addEventListener("click", () => {
+    next();
+  });
+  prevArrow.addEventListener("click", () => {
+    previous();
+  });
   const feedLightBox = (element) => {
     const lightBoxLinkTitle = element.nextSibling.firstChild;
     lightBoxtitle.textContent = lightBoxLinkTitle.textContent;
@@ -153,51 +234,42 @@ async function displayMedia(media) {
   const totalLikesBox = document.createElement("p");
   totalLikesBox.textContent = `${totalLikes}`;
   totalLikesBox.setAttribute("class", "total-likes");
-  totalLikesBox.setAttribute("aria-lable", `${totalLikes} likes`);
+  totalLikesBox.setAttribute("aria-label", `${totalLikes} likes`);
   still_box.appendChild(totalLikesBox);
   still_box.setAttribute("tabindex", 0);
-
   const heart = document.createElement("p");
   heart.innerHTML = `<i class="fas fa-heart"></i>`;
   still_box.appendChild(heart);
 
   //Likes function part
   const hearts = document.querySelectorAll(".big-heart");
+
+  const likeFunction = (element) => {
+    const likeCount = element.previousSibling;
+    const classes = likeCount.classList;
+    const result = classes.toggle("hearts");
+    if (result) {
+      let number = parseInt(likeCount.textContent, 10);
+      likeCount.textContent = `${(number += 1)}`;
+      totalLikesBox.textContent = `${(totalLikes += 1)}`;
+      const elementLikes = element;
+      elementLikes.style.color = "#db8876";
+    } else {
+      let number = parseInt(likeCount.textContent, 10);
+      likeCount.textContent = `${(number -= 1)}`;
+      totalLikesBox.textContent = `${(totalLikes -= 1)}`;
+      const elementLikes = element;
+      elementLikes.style.color = "#901c1c";
+    }
+  };
+
   hearts.forEach((element) => {
     element.addEventListener("click", () => {
-      const likeCount = element.previousSibling;
-      const classes = likeCount.classlist;
-      const result = classes.toggle("hearts");
-      if (result) {
-        let number = parseInt(likeCount.textContent, 10);
-        likeCount.textContent = `${(number += 1)}`;
-        totalLikesBox.textContent = `${(totalLikesBox += 1)}`;
-        const elementLikes = element;
-        elementLikes.style.color = "#db8876";
-      } else {
-        let number = parseInt(likeCount.textContent, 10);
-        likeCount.textContent = `${(number -= 1)}`;
-        totalLikesBox.textContent = `${(totalLikes -= 1)}`;
-        const elementLikes = element;
-        elementLikes.style.color = "#901c1c";
-      }
+      likeFunction(element);
     });
     element.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const likeCount = element.previousSibling;
-        const classes = likeCount.classList;
-        const result = classes.toggle("hearts");
-        if (result) {
-          let number = parseInt(likeCount.textContent, 10);
-          likeCount.textContent = `${(number += 1)}`;
-          totalLikesBox.textContent = `${(totalLikes += 1)}`;
-          elementLikes.style.color = "#db8876";
-        } else {
-          let number = parseInt(likeCount.textContent, 10);
-          likeCount.textContent = `${(totalLikes -= 1)}`;
-          const elementLikes = element;
-          elementLikes.style.color = "#901c1";
-        }
+      if (e.key === "Entre") {
+        likeFunction(element);
       }
     });
   });
