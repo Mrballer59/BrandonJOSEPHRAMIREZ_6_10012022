@@ -194,7 +194,7 @@ aside {
   font-size: 1.5em;
   margin: 7px 0 30px 0;
 }
-.info-title {
+.infoBox-title {
   width: 100%;
   max-width: 283px;
   text-overflow: ellipsis;
@@ -268,6 +268,42 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
+}
+.display {
+  display: none;
+}
+.text-control {
+  margin: 0;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 65px;
+  font-family: "DM Sans", sans-serif;
+}
+.message-div {
+  margin: 5px 0 26px 0;
+}
+#message {
+  margin-top: 5px;
+  height: 150px;
+}
+.error {
+  color: #000000;
+  border: #000000 2px solid;
+  transition: 00.3s;
+}
+.error-message {
+  font-size: 1.4em;
+  color: #000000;
+  margin: 7px 0 7px 0;
+  text-align: right;
+  line-height: 1;
+}
+
+.display {
+  display: none;
 }
 
 /* lightBox Part */
