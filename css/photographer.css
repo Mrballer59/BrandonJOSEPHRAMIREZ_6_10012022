@@ -1,4 +1,4 @@
-#contact_modal {
+#contact-modal {
   display: none;
   position: fixed;
   z-index: 10;
@@ -316,10 +316,13 @@ form input {
   height: 100%;
   width: 100%;
   overflow: auto;
+  background-color: white;
+}
+.big-General-container {
   display: flex;
   column-gap: 27px;
   justify-content: center;
-  background-color: white;
+  position: relative;
 }
 .lightBox-next,
 .lightBox-prev,
@@ -334,12 +337,10 @@ form input {
 .lightBox-prev {
   order: 1;
   position: relative;
-  top: -130px;
 }
 .lightBox-next {
   order: 3;
   position: relative;
-  top: -130;
 }
 .lightBox-close {
   font-size: 60px;
