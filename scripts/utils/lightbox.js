@@ -18,3 +18,9 @@ lightBox.addEventListener("keydown", (e) => {
     closeLightBox();
   }
 });
+lightBoxClose.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    e.preventDefault();
+    lightBoxMediaContenair.focus();
+  }
+});
