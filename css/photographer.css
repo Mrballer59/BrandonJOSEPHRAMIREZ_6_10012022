@@ -12,7 +12,7 @@
 * {
   box-sizing: border-box;
 }
-/* Profile photographer */
+/* Profile photographer part */
 
 .photograph-header {
   background-color: #fafafa;
@@ -53,6 +53,7 @@
   margin: 0px;
   order: 3;
 }
+/* Bouton contact Part */
 .contact_button {
   font-size: 20px;
   font-weight: bold;
@@ -66,20 +67,6 @@
   cursor: pointer;
   order: 2;
   margin-right: 50px;
-}
-.modal {
-  border-radius: 5px;
-  background-color: #db8876;
-  width: 650px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 35px 35px 35px;
-  margin: auto;
-  position: relative;
-  top: 69px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Button part for photographers part */
@@ -99,38 +86,40 @@ aside {
   font-weight: 700;
   margin: 20px 25px 0 100px;
 }
-#close-cross {
-  border: none;
-  background-color: #db8876;
-  position: absolute;
-  top: 35px;
-  right: 35px;
-}
+
 .dropdown {
   position: relative;
   cursor: pointer;
   z-index: 2;
+  width: 170px;
+  height: 69px;
+  border: none;
 }
 .dropdown-button {
-  height: 69px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
   background-color: #901c1c;
   color: white;
-  width: 170px;
   border-radius: 5px;
   border: none;
   font-size: 1.125em;
   font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 18px 0 20px;
 }
 
-.dropdown-button:hover {
+.dropdown:hover div,
+.dropdown:focus div {
   background-color: #db8876;
   color: #000000;
 }
-.dropdown:hover .dropdown-arrow {
+
+.arrow-move {
   transform: rotate(180deg);
 }
 
@@ -155,6 +144,7 @@ aside {
 .dropdown-menu-li {
   padding: 14px 0 14px 20px;
   position: relative;
+  text-align: start;
 }
 .dropdown-menu-li:hover {
   background-color: #db8876;
@@ -173,6 +163,7 @@ aside {
   display: block;
 }
 
+/* Display Part */
 .photograph-media {
   display: flex;
   flex-direction: row;
@@ -185,6 +176,7 @@ aside {
   width: 350px;
   height: 300px;
   border-radius: 5px;
+  cursor: pointer;
   object-fit: cover;
 }
 .infoBox {
@@ -205,6 +197,7 @@ aside {
 .big-heart {
   cursor: pointer;
 }
+/* Still Red Info Box Part */
 .still-box {
   width: 376px;
   height: 67px;
@@ -228,9 +221,31 @@ aside {
 .total-likes {
   margin: 0 7px 0 35px;
 }
+/* Modal Contact Part  */
+.modal {
+  border-radius: 5px;
+  background-color: #db8876;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 35px 35px 35px;
+  margin: auto;
+  position: relative;
+  top: 69px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
 .modal header img {
   cursor: pointer;
   margin-top: 20px;
+}
+#close-cross {
+  border: none;
+  background-color: #db8876;
+  position: absolute;
+  top: 35px;
+  right: 35px;
 }
 
 .modal header h2 {
@@ -246,7 +261,6 @@ form {
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  font-weight: 400;
 }
 
 form label {
@@ -256,18 +270,7 @@ form label {
 }
 
 form div {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  align-items: self-start;
-  margin-bottom: 26px;
-}
-
-form input {
-  width: 100%;
-  height: 68px;
-  border: none;
-  border-radius: 5px;
 }
 .display {
   display: none;
@@ -290,8 +293,8 @@ form input {
   height: 150px;
 }
 .error {
-  color: #000000;
-  border: #000000 2px solid;
+  color: black;
+  border: balck 2px solid;
   transition: 00.3s;
 }
 .error-message {
@@ -363,6 +366,7 @@ form input {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 4px;
 }
 
 .lightBox-container-title {
