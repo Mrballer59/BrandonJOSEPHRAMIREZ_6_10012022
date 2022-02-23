@@ -225,7 +225,7 @@ aside {
 .modal {
   border-radius: 5px;
   background-color: #db8876;
-  width: 650px;
+  width: 670px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,8 +250,6 @@ aside {
 
 .modal header h2 {
   font-size: 64px;
-  /* font-weight: normal;
-  text-align: center; */
   font-weight: 400;
   text-align: start;
 }
@@ -272,9 +270,7 @@ form label {
 form div {
   width: 100%;
 }
-.display {
-  display: none;
-}
+
 .text-control {
   margin: 0;
   padding: 8px;
