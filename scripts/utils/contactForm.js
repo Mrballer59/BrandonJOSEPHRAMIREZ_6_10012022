@@ -1,8 +1,3 @@
-// function displayModal() {
-//     const modal = document.getElementById("contact_modal");
-// 	modal.style.display = "block";
-// }
-
 const modal = document.getElementById("contact-modal");
 const modalOutro = document.getElementById("header");
 const closeCross = document.getElementById("close-cross");
@@ -115,7 +110,7 @@ const yourMessageChecker = (value) => {
   }
 };
 inputs.forEach((inputs) => {
-  inputs.addEventListener("inputs", (e) => {
+  inputs.addEventListener("input", (e) => {
     switch (e.target.id) {
       case "first":
         firstChecker(e.target.value);
