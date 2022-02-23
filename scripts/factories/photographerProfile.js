@@ -54,7 +54,7 @@ export default function profileFactory(data) {
     // name in the modal title
     const contactMe = document.getElementById("contact-me");
     const nameContact = document.createElement("span");
-    nameContact.textContent = `${name}`;
+    nameContact.textContent = ` ${name}`;
     contactMe.appendChild(nameContact);
 
     return article;
