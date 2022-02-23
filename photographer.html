@@ -24,32 +24,66 @@
       <div class="photograph-header"></div>
       <article class="still-box"></article>
       <aside>
-        <p class="selection">Trier par:</p>
-        <div class="dropdown">
+        <label id="sort-by" tabindex="0" class="selection">Trier par:</label>
+        <button
+          id="dropdown-menu"
+          role="button"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          class="dropdown"
+        >
           <div class="dropdown-button">
-            <p id="selected-choice">Popularité</p>
-            <div class="dropdown-arrow">
-              <i class="fas fa-chevron-down"></i>
+            <p id="selected-choice"></p>
+            <div id="dropdown-arrow">
+              <div class="fas fa-chevron-down"></div>
             </div>
           </div>
-          <ul class="dropdown-menu">
-            <li class="dropdown-menu-li" id="choice-popularity">Popularité</li>
-            <li class="dropdown-menu-li" id="choice-date">Date</li>
-            <li class="dropdown-menu-li" id="choice-title">Title</li>
+          <ul
+            role="listbox"
+            aria-activedescendant="dropdown-menu"
+            aria-selected="true"
+            aria-labelledby="sort-by"
+            class="dropdown-menu"
+            id="dropdown-ul"
+          >
+            <li
+              tabindex="0"
+              role="option"
+              class="dropdown-menu-li"
+              id="choice-popularity"
+            >
+              Popularité
+            </li>
+            <li
+              tabindex="0"
+              role="option"
+              class="dropdown-menu-li"
+              id="choice-date"
+            >
+              Date
+            </li>
+            <li
+              tabindex="0"
+              role="option"
+              class="dropdown-menu-li"
+              id="choice-title"
+            >
+              Titre
+            </li>
           </ul>
-        </div>
+        </button>
       </aside>
       <div class="photograph-media"></div>
     </main>
     <div
       id="contact-modal"
       role="dialog"
-      aria-labelledby="contact me"
+      aria-labelledby="contact-me"
       aria-modal="true"
     >
       <div class="modal">
         <header>
-          <h2 tabindex="0">Contactez-moi</h2>
+          <h2 tabindex="0" id="contact-me">Contactez-moi</h2>
         </header>
         <form>
           <div>
@@ -96,7 +130,7 @@
           <button class="contact_button">Envoyer</button>
         </form>
         <button aria-label="close contact form" id="close-cross" role="button">
-          <img src="assets/icons/close.svg" />
+          <img src="assets/icons/close.svg" alt="Close Contact form" />
         </button>
       </div>
     </div>
@@ -109,44 +143,48 @@
       aria-modal="true"
       tabindex="0"
     >
-      <div class="lightBox-center">
-        <div
-          tabindex="0"
-          class="lightBox-container"
-          id="lightBox-container"
-        ></div>
-        <p
-          tabindex="0"
-          class="lightBox-container-title"
-          id="lightBox-container-title"
+      <div class="big-General-container">
+        <div class="lightBox-center">
+          <div
+            tabindex="0"
+            class="lightBox-container"
+            id="lightBox-container"
+          ></div>
+          <p
+            tabindex="0"
+            class="lightBox-container-title"
+            id="lightBox-container-title"
+          ></p>
+        </div>
+
+        <button
+          aria-label="Previous image"
+          id="lightBox-prev"
+          class="lightBox-prev"
         >
-          titre
-        </p>
+          <div class="fas fa-chevron-left"></div>
+        </button>
+
+        <button
+          aria-label="Next image"
+          id="lightBox-next"
+          class="lightBox-next"
+        >
+          <div class="fas fa-chevron-right"></div>
+        </button>
+
+        <button
+          aria-label="Close dialog"
+          class="lightBox-close"
+          id="lightBox-close"
+        >
+          <div class="fas fa-times"></div>
+        </button>
       </div>
-
-      <button
-        id="lightBox-prev"
-        class="lightBox-prev"
-        aria-label="Previous image"
-      >
-        <i class="fas fa-chevron-left"></i>
-      </button>
-
-      <button id="lightBox-next" class="lightBox-next" aria-label="Next image">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-
-      <button
-        class="lightBox-close"
-        id="lightBox-close"
-        aria-label="Close dialog"
-      >
-        <i class="fas fa-times"></i>
-      </button>
     </div>
 
-    <script type="module" src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
-    <script src="/scripts/utils/lightbox.js"></script>
+    <script type="module" src="scripts/pages/photographer.js"></script>
+    <script src="scripts/utils/contactForm.js"></script>
+    <script src="scripts/utils/lightbox.js"></script>
   </body>
 </html>
