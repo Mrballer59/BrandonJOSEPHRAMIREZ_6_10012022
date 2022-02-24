@@ -2,6 +2,7 @@
 import mediaFactory from "../factories/photographerMedia.js";
 import profileFactory from "../factories/photographerProfile.js";
 
+// Gets photos from JSON file
 async function getPhotographers() {
   let photographers = [];
   await fetch("./data/photographers.json")
@@ -28,6 +29,8 @@ async function getMedias() {
   };
 }
 
+// Brandon's Code//
+
 async function displayData(photographers) {
   const photographersHeader = document.querySelector(".photograph-header");
   // Get the id in l'URL
@@ -35,14 +38,14 @@ async function displayData(photographers) {
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
   //transform ID to a string
-
   const idPageParse = JSON.parse(idPage);
 
+  // Get the id
   const profile = photographers.find((element) => element.id === idPageParse);
+
   const photographersProfile = profileFactory(profile);
   const userCardDOM = photographersProfile.getUserCardDOM();
   photographersHeader.appendChild(userCardDOM);
-
   // Modale Part
   const modal = document.getElementById("contact-modal");
   const modalIntro = document.getElementById("contact-me");
@@ -57,33 +60,182 @@ async function displayData(photographers) {
 
 async function displayMedia(media) {
   const mediaSection = document.querySelector(".photograph-media");
+
   const PageQueryString = window.location.search;
   const urlPart = new URLSearchParams(PageQueryString);
   const idPage = urlPart.get("id");
-
+  // Transformation id = string en id =number pour faire la comparaison
   const idPageParse = JSON.parse(idPage);
-  //Get from table the correct id
 
+  //Get from table the correct id
   const mediaBoxes = media.filter(
     (element) => element.photographerId === idPageParse
   );
-  mediaBoxes.sort((a, b) => b.likes - a.likes);
-  mediaBoxes.forEach((mediaBoxe1) => {
-    const mediaBox = mediaFactory(mediaBoxe1);
+  // Fonction de tri
+
+  const selected = document.getElementById("selected-choice");
+  const popularity = document.getElementById("choice-popularity");
+  const date = document.getElementById("choice-date");
+  const title = document.getElementById("choice-title");
+
+  // Navigation in the droplist box,
+  const dropdownMenu = document.querySelector("#dropdown-ul");
+  const dropdownLink = document.querySelector("#dropdown-menu");
+  const arrow = document.querySelector("#dropdown-arrow");
+
+  function toggleNavbar() {
+    if (
+      !dropdownMenu.getAttribute("style") ||
+      dropdownMenu.getAttribute("style") === "display: none;"
+    ) {
+      dropdownMenu.style.display = "block";
+      dropdownLink.setAttribute("aria-expanded", "true");
+      arrow.classList.add("arrow-move");
+    } else {
+      dropdownMenu.style.display = "none";
+      dropdownLink.setAttribute("aria-expanded", "false");
+      dropdownLink.focus();
+      arrow.classList.remove("arrow-move");
+    }
+  }
+
+  dropdownLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleNavbar();
+  });
+
+  // Choix de tri caché dans la light box
+  const selectedChoiceHidden = () => {
+    if (selected.innerHTML === popularity.innerHTML) {
+      popularity.classList.remove("dropdown-menu-li");
+      popularity.innerHTML = "";
+      popularity.removeAttribute("tabindex", "0");
+    } else {
+      popularity.innerHTML = "Popularité";
+      popularity.classList.add("dropdown-menu-li");
+      popularity.setAttribute("tabindex", "0");
+    }
+    if (selected.innerHTML === date.innerHTML) {
+      date.classList.remove("dropdown-menu-li");
+      date.innerHTML = "";
+      date.removeAttribute("tabindex", "0");
+    } else {
+      date.innerHTML = "Date";
+      date.classList.add("dropdown-menu-li");
+      date.setAttribute("tabindex", "0");
+    }
+    if (selected.innerHTML === title.innerHTML) {
+      title.classList.remove("dropdown-menu-li");
+      title.innerHTML = "";
+      title.removeAttribute("tabindex", "0");
+    } else {
+      title.innerHTML = "Titre";
+      title.classList.add("dropdown-menu-li");
+      title.setAttribute("tabindex", "0");
+    }
+  };
+
+  // Popularity tri Part
+
+  function sortByLike() {
+    selected.innerHTML = "Popularité";
+    selectedChoiceHidden();
+    mediaBoxes.sort((a, b) => b.likes - a.likes);
+    mediaBoxes.forEach((mediaBoxe) => {
+      const mediaCard = document.getElementById(mediaBoxe.id);
+
+      mediaSection.appendChild(mediaCard);
+    });
+  }
+  popularity.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sortByLike();
+    }
+  });
+
+  popularity.addEventListener("click", () => {
+    sortByLike();
+  });
+  // Date tri Part
+
+  function sortByDate() {
+    selected.innerHTML = "Date";
+    selectedChoiceHidden();
+    mediaBoxes.sort((a, b) => new Date(b.date) - new Date(a.date));
+    mediaBoxes.forEach((mediaBoxe) => {
+      const mediaCard = document.getElementById(mediaBoxe.id);
+
+      mediaSection.appendChild(mediaCard);
+    });
+  }
+
+  date.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sortByDate();
+    }
+  });
+  date.addEventListener("click", () => {
+    sortByDate();
+  });
+
+  // Title tri Part
+  function sortByTitle() {
+    selected.innerHTML = "Titre";
+
+    selectedChoiceHidden();
+    function compare(a, b) {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    }
+    mediaBoxes.sort(compare);
+
+    mediaBoxes.forEach((mediaBoxe) => {
+      const mediaCard = document.getElementById(mediaBoxe.id);
+
+      mediaSection.appendChild(mediaCard);
+    });
+  }
+
+  title.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sortByTitle();
+    }
+  });
+  title.addEventListener("click", () => {
+    sortByTitle();
+  });
+
+  // Création et affichage des images
+
+  mediaBoxes.forEach((mediaBoxe) => {
+    const mediaBox = mediaFactory(mediaBoxe);
     const mediaCardDOM = mediaBox.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
-  // LightBox part
 
+  // Set up tri par like par défaut
+  sortByLike();
+  selectedChoiceHidden();
+  // ouvrir la lightbox et faire apparaitre le media correspondant
   const lightBox = document.querySelector("#lightBox");
+
   const lightBoxLink = document.querySelectorAll(".media");
   const lightBoxMediaContainer = document.querySelector("#lightBox-container");
 
-  const lightBoxtitle = document.querySelector("#lightBox-container-title");
+  const lightBoxTitle = document.querySelector("#lightBox-container-title");
+
   const prevArrow = document.getElementById("lightBox-prev");
   const nextArrow = document.getElementById("lightBox-next");
 
-  // New Elements for the img ans vidoes plus the arrow
+  // created elements (titres, images, video)
+  // navigation fléchée
+
+  // Element précédent
   const previous = () => {
     let mediaLightBox = document.querySelector(".lightBox-container")
       .firstChild;
@@ -92,6 +244,7 @@ async function displayMedia(media) {
       (element) => element.id === parseInt(mediaLightBox.dataset.id, 10)
     );
     let i = mediaBoxes.indexOf(result);
+
     if (i === 0) {
       i = mediaBoxes.length;
     }
@@ -99,7 +252,7 @@ async function displayMedia(media) {
 
     if (nextMedia.image) {
       const newDisplayImage = nextMedia.image;
-      const picture = `.assets/images/${newDisplayImage}`;
+      const picture = `./assets/images/${newDisplayImage}`;
       const img = document.createElement("img");
       img.setAttribute("src", picture);
       img.setAttribute("alt", nextMedia.title);
@@ -107,11 +260,11 @@ async function displayMedia(media) {
 
       lightBoxMediaContainer.innerHTML = "";
       lightBoxMediaContainer.appendChild(img);
-      lightBoxMediaContainer.textContent = nextMedia.title;
+      lightBoxTitle.textContent = nextMedia.title;
     }
     if (nextMedia.video) {
       const newDisplayVideo = nextMedia.video;
-      const movie = `./assets/movie/${newDisplayVideo}`;
+      const movie = `./assets/movies/${newDisplayVideo}`;
       const videoDisplay = document.createElement("video");
       videoDisplay.setAttribute("src", movie);
       videoDisplay.setAttribute("controls", "");
@@ -123,14 +276,14 @@ async function displayMedia(media) {
 
       lightBoxMediaContainer.innerHTML = "";
       lightBoxMediaContainer.appendChild(videoDisplay);
-      lightBoxtitle.textContent = nextMedia.video
+      lightBoxTitle.textContent = nextMedia.video
         .replace(/_/g, " ")
         .replace(".mp4", " ");
     }
+
     mediaLightBox = document.querySelector(".lightBox-container").firstChild;
   };
-
-  // Next Elements
+  // Element Next
   const next = () => {
     let mediaLightBox = document.querySelector(".lightBox-container")
       .firstChild;
@@ -138,11 +291,14 @@ async function displayMedia(media) {
     const result = mediaBoxes.find(
       (element) => element.id === parseInt(mediaLightBox.dataset.id, 10)
     );
+
     let i = mediaBoxes.indexOf(result);
+
     if (i === mediaBoxes.length - 1) {
       i = -1;
     }
     const nextMedia = mediaBoxes[i + 1];
+
     if (nextMedia.image) {
       const newDisplayImage = nextMedia.image;
       const picture = `./assets/images/${newDisplayImage}`;
@@ -150,27 +306,30 @@ async function displayMedia(media) {
       img.setAttribute("src", picture);
       img.setAttribute("alt", nextMedia.title);
       img.dataset.id = mediaBoxes[i + 1].id;
+
       lightBoxMediaContainer.innerHTML = "";
       lightBoxMediaContainer.appendChild(img);
-      lightBoxtitle.textContent = nextMedia.title;
+      lightBoxTitle.textContent = nextMedia.title;
     }
     if (nextMedia.video) {
       const newDisplayVideo = nextMedia.video;
       const movie = `./assets/movies/${newDisplayVideo}`;
       const videoDisplay = document.createElement("video");
       videoDisplay.setAttribute("src", movie);
-      videoDisplay.setAttribute("controls", " ");
+      videoDisplay.setAttribute("controls", "");
       videoDisplay.setAttribute(
-        "arial-label",
+        "aria-label",
         nextMedia.video.replace(/_/g, " ").replace(".mp4", " ")
       );
       videoDisplay.dataset.id = mediaBoxes[i + 1].id;
+
       lightBoxMediaContainer.innerHTML = "";
       lightBoxMediaContainer.appendChild(videoDisplay);
-      lightBoxtitle.textContent = nextMedia.video
+      lightBoxTitle.textContent = nextMedia.video
         .replace(/_/g, " ")
         .replace(".mp4", " ");
     }
+
     mediaLightBox = document.querySelector(".lightBox-container").firstChild;
   };
   // Event Part of lightBox
@@ -179,6 +338,7 @@ async function displayMedia(media) {
       next();
     }
   });
+
   lightBox.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       previous();
@@ -187,42 +347,52 @@ async function displayMedia(media) {
   nextArrow.addEventListener("click", () => {
     next();
   });
+
   prevArrow.addEventListener("click", () => {
     previous();
   });
+
+  //  Elements of lightbox click part
+
   const feedLightBox = (element) => {
     const lightBoxLinkTitle = element.nextSibling.firstChild;
-    lightBoxtitle.textContent = lightBoxLinkTitle.textContent;
+    lightBoxTitle.textContent = lightBoxLinkTitle.textContent;
 
-    const lightBox = document.getElementById("lightBox");
     const mediaLightBoxLink = element.src;
+    const altTitle = element.alt;
 
     if (mediaLightBoxLink.includes(".jpg")) {
       const img = document.createElement("img");
       img.setAttribute("src", mediaLightBoxLink);
+      img.setAttribute("alt", altTitle);
       img.dataset.id = element.dataset.id;
-      // img.setAttribute("id", "image-lightbox");
       lightBoxMediaContainer.appendChild(img);
     }
+
     if (mediaLightBoxLink.includes(".mp4")) {
       const video = document.createElement("video");
       video.setAttribute("src", mediaLightBoxLink);
       video.setAttribute("controls", "");
+      video.dataset.id = element.dataset.id;
       lightBoxMediaContainer.appendChild(video);
     }
     lightBox.setAttribute("aria-hidden", "false");
     lightBox.style.visibility = "visible";
     lightBox.focus();
   };
+
   lightBoxLink.forEach((element) => {
-    element.addEventListener("keyprees", (e) => {
-      if (e.key === "Enter") feedLightBox(element);
+    element.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        feedLightBox(element);
+      }
     });
     element.addEventListener("click", () => {
       feedLightBox(element);
     });
   });
 
+  //total hearts
   let totalLikes = 0;
   mediaBoxes.map((element) => {
     totalLikes += element.likes;
@@ -241,10 +411,10 @@ async function displayMedia(media) {
   heart.innerHTML = `<i class="fas fa-heart"></i>`;
   still_box.appendChild(heart);
 
-  //Likes function part
+  // function of heart + the likes
   const hearts = document.querySelectorAll(".big-heart");
 
-  const likeFunction = (element) => {
+  const LikeFunction = (element) => {
     const likeCount = element.previousSibling;
     const classes = likeCount.classList;
     const result = classes.toggle("hearts");
@@ -262,21 +432,21 @@ async function displayMedia(media) {
       elementLikes.style.color = "#901c1c";
     }
   };
-
+  // The event of the hearts
   hearts.forEach((element) => {
     element.addEventListener("click", () => {
-      likeFunction(element);
+      LikeFunction(element);
     });
     element.addEventListener("keypress", (e) => {
-      if (e.key === "Entre") {
-        likeFunction(element);
+      if (e.key === "Enter") {
+        LikeFunction(element);
       }
     });
   });
 }
 
 async function init() {
-  // fetchs the data and display it
+  // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
   displayData(photographers);
 
@@ -286,151 +456,6 @@ async function init() {
 
 init();
 
-// Function of filter
+// END OF CODEE! //
 
-const selected = document.getElementById("selected-choice");
-const popularity = document.getElementById("choice-popularity");
-const date = document.getElementById("choice-date");
-const title = document.getElementById("choice-title");
-
-const selectedChoiceHidden = () => {
-  if (selected.innerHTML === popularity.innerHTML) {
-    popularity.classList.remove("dropdown-menu-li");
-    popularity.innerHTML = "";
-  } else {
-    popularity.innerHTML = "Popularité";
-    popularity.classList.add("dropdown-menu-li");
-  }
-  if (selected.innerHTML === date.innerHTML) {
-    date.classList.remove("dropdown-menu-li");
-    date.innerHTML = "";
-  } else {
-    date.innerHTML = "Date";
-    date.classList.add("dropdown-menu-li");
-  }
-  if (selected.innerHTML === title.innerHTML) {
-    title.classList.remove("dropdown-menu-li");
-    title.innerHTML = "";
-  } else {
-    title.innerHTML = "Titre";
-    title.classList.add("dropdown-menu-li");
-  }
-};
-
-selectedChoiceHidden();
-
-popularity.addEventListener("click", async () => {
-  selected.innerHTML = "Popularité";
-  selectedChoiceHidden();
-  async function sortByLike() {
-    let media = [];
-
-    await fetch("./data/photographers.json")
-      .then((res) => res.json())
-      .then((data) => {
-        media = data.media;
-      });
-
-    const mediaSection = document.querySelector(".photograph-media");
-    // mediaSection.innerHTML = "";
-    const PageQueryString = window.location.search;
-    const urlParams = new URLSearchParams(PageQueryString);
-    const idPage = urlParams.get("id");
-
-    // Transformation id = string en id =number pour faire la comparaison
-    const idPageParse = JSON.parse(idPage);
-
-    // Récupération des tableaux correspondant à l'id
-    const mediaBoxes = media.filter(
-      (element) => element.photographerId === idPageParse
-    );
-    mediaBoxes.sort((a, b) => b.likes - a.likes);
-    mediaBoxes.forEach((mediaBoxe) => {
-      const mediaCard = document.getElementById(mediaBoxe.id);
-
-      mediaSection.appendChild(mediaCard);
-    });
-  }
-  sortByLike();
-});
-date.addEventListener("click", async () => {
-  selected.innerHTML = "Date";
-  selectedChoiceHidden();
-
-  async function sortByDate() {
-    let media = [];
-
-    await fetch("./data/photographers.json")
-      .then((res) => res.json())
-      .then((data) => {
-        media = data.media;
-      });
-
-    const mediaSection = document.querySelector(".photograph-media");
-    // mediaSection.innerHTML = "";
-    const PageQueryString = window.location.search;
-    const urlParams = new URLSearchParams(PageQueryString);
-    const idPage = urlParams.get("id");
-    // Transformation id = string en id =number pour faire la comparaison
-    const idPageParse = JSON.parse(idPage);
-
-    // Récupération des tableaux correspondant à l'id
-    const mediaBoxes = media.filter(
-      (element) => element.photographerId === idPageParse
-    );
-
-    mediaBoxes.sort((a, b) => new Date(b.date) - new Date(a.date));
-    mediaBoxes.forEach((mediaBoxe) => {
-      const mediaCard = document.getElementById(mediaBoxe.id);
-
-      mediaSection.appendChild(mediaCard);
-    });
-  }
-  sortByDate();
-});
-
-title.addEventListener("click", async () => {
-  selected.innerHTML = "Titre";
-  selectedChoiceHidden();
-
-  async function sortByTitle() {
-    let media = [];
-
-    await fetch("./data/photographers.json")
-      .then((res) => res.json())
-      .then((data) => {
-        media = data.media;
-      });
-
-    const mediaSection = document.querySelector(".photograph-media");
-
-    const PageQueryString = window.location.search;
-    const urlParams = new URLSearchParams(PageQueryString);
-    const idPage = urlParams.get("id");
-    // Transformation id = string en id =number pour faire la comparaison
-    const idPageParse = JSON.parse(idPage);
-
-    // Récupération des tableaux correspondant à l'id
-    const mediaBoxes = media.filter(
-      (element) => element.photographerId === idPageParse
-    );
-
-    function compare(a, b) {
-      if (a.title < b.title) {
-        return -1;
-      }
-      if (a.title > b.title) {
-        return 1;
-      }
-      return 0;
-    }
-    mediaBoxes.sort(compare);
-
-    mediaBoxes.forEach((mediaBoxe) => {
-      const mediaCard = document.getElementById(mediaBoxe.id);
-
-      mediaSection.appendChild(mediaCard);
-    });
-  }
-  sortByTitle();
-});
+// Brandon's Code//
