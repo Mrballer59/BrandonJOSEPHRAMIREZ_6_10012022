@@ -168,9 +168,8 @@ aside {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  column-gap: 93px;
-  /* border: red solid 1px; */
-  margin: 30px 100px 0 100px;
+  column-gap: 70px;
+  margin: 25px 5px 0px 20px;
 }
 .media {
   width: 350px;
