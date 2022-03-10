@@ -170,6 +170,7 @@ aside {
   flex-wrap: wrap;
   column-gap: 70px;
   margin: 25px 5px 0px 20px;
+  justify-content: center;
 }
 .media {
   width: 350px;
