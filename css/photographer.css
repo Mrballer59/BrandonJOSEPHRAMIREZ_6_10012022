@@ -320,7 +320,7 @@ form div {
 .big-General-container {
   display: flex;
   column-gap: 27px;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
 }
 .lightBox-next,
